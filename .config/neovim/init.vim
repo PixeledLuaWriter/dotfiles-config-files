@@ -206,7 +206,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nnoremap <unique> <silent> <C-D> <cmd>call smoothie#downwards() <CR>
 nnoremap <unique> <silent> <C-F> <cmd>call smoothie#upwards() <CR>
 " Open new files
-noremap <C-n> :execute("FZF")<CR>
+noremap <unique> <silent> <leader>g <cmd>call execute('FZF') <CR>
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
