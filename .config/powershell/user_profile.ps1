@@ -1,4 +1,4 @@
-# Clear Default Startup Text
+# Clear Default Bullshit Lol
 
 Clear-Host
 
@@ -38,6 +38,11 @@ oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/atomic.omp.json | 
 
 Clear-Host
 
+Start-Sleep -Milliseconds 300
+Start-Sleep -Milliseconds 200
+
+Clear-Host
+
 # Setting Aliases
 
 Set-Alias -Name vim -Value nvim
@@ -45,6 +50,7 @@ Set-Alias -Name gt -Value git
 Set-Alias -Name grep -Value findstr
 Set-Alias -Name tig -Value 'C:\Program Files\Git\usr\bin\tig.exe'
 Set-Alias -Name less -Value 'C:\Program Files\Git\usr\bin\less.exe'
+Set-Alias -Name bash -Value 'C:\Program Files\Git\usr\bin\bash.exe'
 
 # Setting PSReadLine Stuff
 
@@ -66,5 +72,5 @@ $env:GIT_SSH = "C:\Windows\System32\OpenSSH\ssh.exe"
 # Utility Stuff
 
 function which ($command) {
-    Get-Command -Name $command -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
+	Get-Command -Name $command -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
 }
