@@ -36,6 +36,10 @@ if(!(Test-Path -Path "$env:USERPROFILE/.config/powershell/user_profile.ps1")) {
     Invoke-WebRequest $repoPath -OutFile $env:USERPROFILE/.config/powershell/$repoFile
 }
 
+if((Get-Command -Name neovim) && !(Test-Path -Path "~/AppData/Local/nvim/init.vim")) {
+    Invoke-WebRequest "https://raw.githubusercontent.com/PixeledLuaWriter/dotfiles-config-files/main/.config/nvim/init.vim" -OutFile "~/AppData/Local/nvim/init.vim"
+}
+
 if(Test-Path -Path "$PSScriptRoot\prompting.ps1") {
     . "$PSScriptRoot\prompting.ps1"
 }
