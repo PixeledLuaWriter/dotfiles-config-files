@@ -2,44 +2,39 @@
 
 Clear-Host
 
-Start-Sleep -Milliseconds 300
-
-Write-Host "Please Wait While The Profile Configuration Loads" -ForegroundColor Yellow
-Start-Sleep -Milliseconds 500
-
-Write-Host "." -ForegroundColor Yellow
-Start-Sleep -Milliseconds 300
-
-Write-Host ".." -ForegroundColor Yellow
-Start-Sleep -Milliseconds 300
-
-Write-Host "..." -ForegroundColor Yellow
-
 # Reset Powershell's Text Encoding
-
-Write-Host "Resetting PowerShell's Text Encoding"
 
 [Console]::InputEncoding = New-Object System.Text.UTF8Encoding
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
-Start-Sleep -Milliseconds 300
+# Checking If posh-git, oh-my-posh, Terminal-Icons, z, and PSFzf Are Installed From PSGallery
+
+if(!(Get-Module -Name posh-git) && !(Get-Module -Name oh-my-posh) && !(Get-Module -Name Terminal-Icons) && !(Get-Module -Name z) && !(Get-Module -Name PSFzf)){
+	Write-Host "Installing posh-git, oh-my-posh, Terminal-Icons, z, and PSFzf From PSGallery" -ForegroundColor Yellow
+	Install-Module -Name posh-git -Scope CurrentUser -Force
+	Install-Module -Name oh-my-posh -Scope CurrentUser -Force
+	Install-Module -Name Terminal-Icons -Scope CurrentUser -Repository PSGallery -Force
+	Install-Module -Name z -Scope CurrentUser -Force -AllowClobber
+	Install-Module -Name PSFzf -Scope CurrentUser -Force
+} else {
+	Write-Host "posh-git, oh-my-posh, Terminal-Icons, z, and PSFzf Are Already Installed"
+}
+
+if ((Get-Module -Name PSReadline)) {
+	Write-Host "Updating PSReadline to Prerelease Version" -ForegroundColor Yellow
+	Install-Module -Name PSReadline -Scope CurrentUser -Force -AllowPrerelease -SkipPublisherCheck
+}
 
 # Importing Main Pieces Of Customization Engine
-
-Write-Host "Loading Up Customization Modules And The Customization Engine From Oh-My-Posh" -ForegroundColor Green
 
 Import-Module -Name posh-git
 Import-Module -Name oh-my-posh
 Import-Module -Name Terminal-Icons
+Import-Module -Name PSFzf
 
 # Initiating Oh My Powershell Customizer
 
 oh-my-posh --init --shell pwsh --config $env:POSH_THEMES_PATH/atomic.omp.json | Invoke-Expression
-
-Clear-Host
-
-Start-Sleep -Milliseconds 300
-Start-Sleep -Milliseconds 200
 
 Clear-Host
 
@@ -62,7 +57,6 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 
 # Setting PSFzf (Powershell Fuzzy Finder)
 
-Import-Module -Name PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # GitSSH Env
